@@ -7,11 +7,6 @@
     <link rel="stylesheet" href="{{asset('css/semantic.css')}}">
     <script src="{{asset('js/semantic.js')}}"></script>
     <script src="{{asset('js/self.js')}}"></script>
-    <script>
-        $(document).ready(function () {
-            window.location.reload();
-        });
-    </script>
 </head>
 <body>
 <div class="ui container">
@@ -27,7 +22,6 @@
                                 <a href="update" class="item">修改个人信息</a>
                             </div>
                         </div>
-                        <a href="collectionShell" class="ui label" style="margin-left: 10px">收藏夹</a>
                         @if(session('user')['role']=='teacher')
                             <a href="owns" class="ui label">我的文章</a>
                             <a href="publish" class="ui label" style="margin-left: 10px">发布文章</a>
@@ -46,7 +40,7 @@
                 <input type="text" id="key" placeholder="请输入关键词">
                 <select class="ui compact selection dropdown"  id="limits">
                     <option selected="" value="articles">文章</option>
-                    <option value="teacher">教师</option>
+                    <option value="tName">教师</option>
                 </select>
                 <div class="ui blue button" id="search">搜索</div>
             </div>
@@ -64,24 +58,26 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($publisher as $publisher)
-            @foreach($publisher->articles as $article)
-        <tr class="artcle" arti_id="{{$article->id}}">
-            <td>{{$article->title}}</td>
-            <td>{{$publisher->username}}</td>
-            <td>{{$article->created_at}}</td>
-            <td>{{$article->hits}}次</td>
+        @if(session()->exists('hasCollection'))
+        @foreach($user as $user)
+            @foreach($user->collections as $artcle)
+        <tr class="artcle" arti_id="{{$artcle->id}}">
+            <td>{{$artcle->title}}</td>
+            <td>{{$artcle->publisher['username']}}</td>
+            <td>{{$artcle->created_at}}</td>
+            <td>{{$artcle->hits}}次</td>
         </tr>
+                @endforeach
             @endforeach
-        @endforeach
+            @endif
         </tbody>
     </table>
     <div class="field">
-        @if(session()->exists('error2'))
-            <span>{{session('error2')}}</span>
-        @else
-            <span>没有更多的检索结果</span>
-        @endif
+        @if(session()->exists('blankCollection'))
+            <span>{{session('blankCollection')}}</span>
+            @else
+        <span>没有更多的检索结果</span>
+            @endif
     </div>
 </div>
 </body>

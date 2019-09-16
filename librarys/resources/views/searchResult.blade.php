@@ -22,7 +22,7 @@
                                 <a href="update" class="item">修改个人信息</a>
                             </div>
                         </div>
-                        <a href="#" class="ui label" style="margin-left: 10px">收藏夹</a>
+                        <a href="collectionShell" class="ui label" style="margin-left: 10px">收藏夹</a>
                         @if(session('user')['role']=='teacher')
                             <a href="owns" class="ui label">我的文章</a>
                             <a href="publish" class="ui label" style="margin-left: 10px">发布文章</a>

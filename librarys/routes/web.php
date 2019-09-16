@@ -11,11 +11,6 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('home');
-//});
-
-
 use App\Http\Controllers\MainController;
 
 Route::get('/','MainController@index');
@@ -29,7 +24,7 @@ Route::get('searchAll','SearchController@searchAll');
 
 Route::get('owns','SearchController@owns');
 
-Route::get('article','SearchController@getOne');
+Route::get('article','SearchController@getOne')->middleware('checkLogin');
 
 Route::post('loginDo','MainController@loginDo');
 
@@ -43,11 +38,23 @@ Route::post('registerDo','MainController@registerDo');
 Route::get('update',function (){
     return view('userinfo');
 });
-Route::post('update','MainController@updateDo');
+Route::post('updateDo','MainController@update');
 
 Route::get('login',function (){
     return view('LoginPage');
 });
+
+Route::get('collect','CollectionController@collect');
+
+Route::get('collectionShell','CollectionController@collections');
+
+Route::get('edit','PublishController@edit');
+
+Route::post('editDo','PublishController@editDo');
+
+Route::get('deleteDo','PublishController@deleteDo');
+
+
 
 
 

@@ -23,7 +23,7 @@
                                 <a href="update" class="item">修改个人信息</a>
                             </div>
                         </div>
-                        <a href="#" class="ui label" style="margin-left: 10px">收藏夹</a>
+                        <a href="collectionShell" class="ui label" style="margin-left: 10px">收藏夹</a>
                         @if(session('user')['role']=='teacher')
                             <a href="owns" class="ui label">我的文章</a>
                             <a href="publish" class="ui label" style="margin-left: 10px">发布文章</a>
@@ -78,7 +78,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <div id="update" class="fluid ui blue button">确认修改</div>
+                    <div id="updateDo" class="fluid ui blue button">确认修改</div>
                 </td>
             </tr>
             </tbody>
@@ -89,11 +89,11 @@
 </body>
 <script>
     $(function () {
-        $('#update').click(function () {
+        $('#updateDo').click(function () {
             var old_password=$('#cur_password').val();
             var re_password=$('#re_password').val();
             if(old_password!=re_password){
-                alert(old_password);
+                alert('旧密码输入不正确');
             }
             else{
                 var password=$('#password').val();

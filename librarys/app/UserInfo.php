@@ -22,4 +22,8 @@ class UserInfo extends Model
     {
         return $this->hasMany(Articles::class,'t_id','user_id');
     }
+    public function collections(){
+        return $this->hasManyThrough(Articles::class,Collection::class
+        ,'user_id','id','user_id','article_id');
+    }
 }

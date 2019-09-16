@@ -67,14 +67,13 @@ class SearchController extends Controller
         return view('articleContent',$data);
     }
     public function owns(){
-        $articles=Articles::query()->where('t_id',session('user')['user_id'])->get();
+        $articles=Articles::query()->where('t_id',session('user')['user_id'])->orderByDesc('hits')->get();
         if($articles->isEmpty()){
             session()->flash('error2','没有相关文章发布');
         }
         $data=[
             'artcles'=>$articles
         ];
-        return view('searchResult',$data);
-
+        return view('ownArticle',$data);
     }
 }

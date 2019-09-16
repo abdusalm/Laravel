@@ -17,13 +17,24 @@
             <form class="login form" id="entry_form" method="POST" action="loginDo">
                 @method('POST')
                 @csrf
-                <input type="text" placeholder="用户名" id="entry_name" name="user_id" >
+                <input type="text" placeholder="用户名" id="entry_name" name="user_id"
+                @if(session()->exists('user_id'))
+                    value="{{session('user_id')}}"
+                    @endif
+                >
                 <input type="password" placeholder="密码" id="entry_password" name="password">
                 <button type="submit" id="entry_btn" >登录</button>
                 <div id="prompt" class="prompt"></div>
                 @if(session()->exists('error1'))
                     <div>
-                        {{session('error1')}}
+                        {{session('error1')}}<br>
+                        <a href="register">还没账号,去注册</a>
+                    </div>
+                    @endif
+                @if(session()->exists('logindo'))
+                    <div>
+                        {{session('logindo')}}<br>
+                        <a href="register">还没账号，去注册</a>
                     </div>
                     @endif
             </form>

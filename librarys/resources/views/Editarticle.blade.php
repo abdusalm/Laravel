@@ -15,57 +15,57 @@
     <script type="text/javascript" src="{{asset('js/uploader.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/simditor.js')}}"></script>
     <script type="text/javascript">
-            $(document).ready(function () {
-                var editor=new Simditor({
-                    toolbar: [
-                        'title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale',
-                        'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link',
-                        'image', 'hr', '|', 'alignment'
-                    ],
-                    textarea: $('#editor'),
-                });
-                $('#select').dropdown();
-                    $('.ui.form')
-                        .form({
-                            fields: {
-                                title: {
-                                    identifier: 'title',
-                                    rules: [
-                                        {
-                                            type   : 'empty',
-                                            prompt : '请输入标题'
-                                        }
-                                    ]
-                                },
-                                discription: {
-                                    identifier: 'discription',
-                                    rules: [
-                                        {
-                                            type   : 'empty',
-                                            prompt : '请添加描述'
-                                        }
-                                    ]
-                                },
-                                password: {
-                                    identifier: 'editor',
-                                    rules: [
-                                        {
-                                            type   : 'empty',
-                                            prompt : '请输入文章内容'
-                                        },
-                                    ]
-                                },
-                            }
-                        })
-                    ;
+        $(document).ready(function () {
+            var editor=new Simditor({
+                toolbar: [
+                    'title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale',
+                    'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link',
+                    'image', 'hr', '|', 'alignment'
+                ],
+                textarea: $('#editor'),
             });
+            $('#select').dropdown();
+            $('.ui.form')
+                .form({
+                    fields: {
+                        title: {
+                            identifier: 'title',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : '请输入标题'
+                                }
+                            ]
+                        },
+                        discription: {
+                            identifier: 'discription',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : '请添加描述'
+                                }
+                            ]
+                        },
+                        password: {
+                            identifier: 'editor',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : '请输入文章内容'
+                                },
+                            ]
+                        },
+                    }
+                })
+            ;
+        });
     </script>
 </head>
 <body>
 <div class="ui container">
     <div class="ui divider"></div>
     @if(session()->exists('success'))
-    <div class="ui blue header">{{session('success')}}</div>
+        <div class="ui blue header">{{session('success')}}</div>
     @endif
     <div class="ui middle aligned divided list">
         <div class="item">
@@ -108,17 +108,17 @@
             </div>
         </div>
         <div class="twelve wide column ">
-            <form action="publishDo" class="ui form" method="post" id="form">
+            <form action="editDo" class="ui form" method="post" id="form">
                 @csrf
                 @method('POST')
                 <div class="ui  list">
                     <div class="item">
                         <div class="ui input focus">
-                            <input name="title" id="title" type="text"  placeholder="请输入标题！！">
+                            <input name="title" id="title" type="text"  placeholder="请输入标题！！" value="{{$arti->title}}" >
                         </div>
                         <select class="ui dropdown  courses"  name="co_id" id="select">
                             @foreach($courses as $course)
-                            <option value="{{$course->co_id}}">{{$course->co_name}}</option>
+                                <option value="{{$course->co_id}}">{{$course->co_name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -127,11 +127,13 @@
                     <div class="ui label">
                         <div class="ui header">内容描述：</div>
                     </div>
-                    <textarea name="discription" type="text" id="dicsription" style="width: 730px;height: 80px;resize: none" placeholder="请输入一段文章描述（150字左右）"></textarea>
+                    <textarea name="discription" type="text" id="dicsription" style="width: 730px;height: 80px;resize: none"
+                              placeholder="请输入一段文章描述（150字左右）">{!! $arti->discription !!}</textarea>
                 </div>
+                <input type="text" name="id" hidden value="{{$arti->id}}">
                 <div class="ui  divider"></div>
-                <textarea id="editor" name="con"></textarea>
-                <div class="fluid ui submit blue button">上传</div>
+                <textarea id="editor" name="con">{!! $arti->content !!}}</textarea>
+                <div class="fluid ui submit blue button">保存修改</div>
                 <div class="ui error message"></div>
             </form>
         </div>

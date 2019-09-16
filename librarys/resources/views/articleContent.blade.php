@@ -19,10 +19,10 @@
                         <div class="ui dropdown">
                             <div class="text">{{session('user')['username']}}</div>
                             <div class="menu">
-                                <a href="update"kkkddu: class="item">修改个人信息</a>
+                                <a href="update" class="item">修改个人信息</a>
                             </div>
                         </div>
-                        <a href="#" class="ui label" style="margin-left: 10px">收藏夹</a>
+                        <a href="collectionShell" class="ui label" style="margin-left: 10px">收藏夹</a>
                         @if(session('user')['role']=='teacher')
                             <a href="owns" class="ui label">我的文章</a>
                             <a href="publish" class="ui label" style="margin-left: 10px">发布文章</a>
@@ -50,17 +50,34 @@
 </div>
 <div class="ui container">
     <div class="ui divider"></div>
+    @if(session()->exists('success'))
+        <div class="ui blue header">{{session('success')}}</div>
+    @endif
     <div class="ui fluid three item menu">
         <a class="item"><div class="ui red header">标题：{{$arti->title}}</div></a>
         <a class="item"><div class="ui header">上传者：{{$arti->publisher['username']}}</div></a>
         <a class="item">点击次数：{{$arti->hits}}次</a>
     </div>
-
-
+    <h2 class="ui blue header">描述</h2>
+    <div class="ui  segment">
+        {!! $arti->discription !!}
+    </div>
+    <div class="right floated content">
+            <div class="ui right floated red button" cur_id="{{$arti->id}}" id="collect">收藏</div>
+    </div>
     <h2 class="ui green header">内容</h2>
     <div class="ui stacked segment">
         {!! $arti->content !!}
     </div>
 </div>
+<div class="ui divider"></div>
 </body>
+<script>
+    $(function () {
+        $('#collect').click(function () {
+            var cur_id=$('#collect').attr('cur_id');
+            document.location.href='collect?'+'id='+cur_id;
+        });
+    });
+</script>
 </html>

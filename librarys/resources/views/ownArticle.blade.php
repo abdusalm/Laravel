@@ -7,11 +7,6 @@
     <link rel="stylesheet" href="{{asset('css/semantic.css')}}">
     <script src="{{asset('js/semantic.js')}}"></script>
     <script src="{{asset('js/self.js')}}"></script>
-    <script>
-        $(document).ready(function () {
-            window.location.reload();
-        });
-    </script>
 </head>
 <body>
 <div class="ui container">
@@ -46,7 +41,7 @@
                 <input type="text" id="key" placeholder="请输入关键词">
                 <select class="ui compact selection dropdown"  id="limits">
                     <option selected="" value="articles">文章</option>
-                    <option value="teacher">教师</option>
+                    <option value="tName">教师</option>
                 </select>
                 <div class="ui blue button" id="search">搜索</div>
             </div>
@@ -61,27 +56,29 @@
             <th>上传者</th>
             <th>发布日期</th>
             <th>点击量</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($publisher as $publisher)
-            @foreach($publisher->articles as $article)
-        <tr class="artcle" arti_id="{{$article->id}}">
-            <td>{{$article->title}}</td>
-            <td>{{$publisher->username}}</td>
-            <td>{{$article->created_at}}</td>
-            <td>{{$article->hits}}次</td>
+        @foreach($artcles as $artcle)
+        <tr class="artcle" arti_id="{{$artcle->id}}">
+            <td>{{$artcle->title}}</td>
+            <td>{{$artcle->publisher['username']}}</td>
+            <td>{{$artcle->created_at}}</td>
+            <td>{{$artcle->hits}}次</td>
+            <td><a class="ui green button" href="edit?id={{$artcle->id}}">编辑</a>
+                <a class="ui red button" href="deleteDo?id={{$artcle->id}}">删除</a>
+            </td>
         </tr>
             @endforeach
-        @endforeach
         </tbody>
     </table>
     <div class="field">
         @if(session()->exists('error2'))
             <span>{{session('error2')}}</span>
-        @else
-            <span>没有更多的检索结果</span>
-        @endif
+            @else
+        <span>没有更多的检索结果</span>
+            @endif
     </div>
 </div>
 </body>

@@ -43,19 +43,6 @@
                                 }
                             ]
                         },
-                        // repassword: {
-                        //     identifier: 'repassword',
-                        //     rules: [
-                        //         {
-                        //             equalTo:'#password',
-                        //             prompt : '密码一样了'
-                        //         },
-                        //         {
-                        //             type   : 'empty',
-                        //             prompt : '密码不能为空'
-                        //         }
-                        //     ]
-                        // },
                     }
                 })
             ;

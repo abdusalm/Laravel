@@ -1,14 +1,4 @@
 $(document).ready(function () {
-    // $('.label').popup({
-    //     inline:true,
-    //     position:'bottom left',
-    //     hoverable:true,
-    //     delay: {
-    //         show: 50,
-    //         hide: 100
-    //     }
-    //
-    // });
     $('.ui.dropdown')
         .dropdown();
 
