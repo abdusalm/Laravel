@@ -25,7 +25,7 @@ class UserControlle extends AdminController
     protected function grid()
     {
         $grid = new Grid(new UserInfo);
-
+        $grid->disableActions();
         $grid->column('id', __('Id'));
         $grid->column('username', __('用户名'));
         $grid->column('password', __('密码'))->hide();
@@ -70,20 +70,22 @@ class UserControlle extends AdminController
     protected function form()
     {
         $form = new Form(new UserInfo);
-
-        $form->text('username', __('用户名'));
-        $form->password('password', __('密码'));
+        $user=UserInfo::query()->where('role','teacher')->count();
+        $count=$user+1;
+        $form->text('user_id',__('用户账号'))->value('t1000'.$count)->readonly();
+        $form->html('<p style="color: #ff4335">请记住的用户账号，登录需要用户账号</p>', $label = '');
+        $form->text('username', __('用户名'))->required();
+        $form->password('password', __('密码'))->rules('required|min:6',[
+            'min'=>'密码不能少于6为'
+        ]);
         $form->saving(function (Form $form){
             if ($form->password&&$form->model()->password!=$form->password){
                 $form->password=encrypt($form->password);
             }
         });
-        $user=UserInfo::query()->where('role','teacher')->count();
-        $count=$user+1;
-        $form->hidden('user_id')->value('t1000'.$count);
-        $form->select('role','角色')->options(['--请选择角色--','teacher'=>'教师','student'=>'学生']);
-        $form->text('motto', __('座右铭'));
-        $form->text('resume', __('简历'));
+        $form->hidden('role','角色')->value('teacher');
+        $form->text('motto', __('座右铭'))->required();
+        $form->text('resume', __('简历'))->required();
 
         return $form;
     }
