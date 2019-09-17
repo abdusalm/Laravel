@@ -132,7 +132,7 @@
                 </div>
                 <input type="text" name="id" hidden value="{{$arti->id}}">
                 <div class="ui  divider"></div>
-                <textarea id="editor" name="con">{!! $arti->content !!}}</textarea>
+                <textarea id="editor" name="con">{!! $arti->content !!}</textarea>
                 <div class="fluid ui submit blue button">保存修改</div>
                 <div class="ui error message"></div>
             </form>
