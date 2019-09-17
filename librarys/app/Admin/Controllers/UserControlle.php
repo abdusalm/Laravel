@@ -26,6 +26,10 @@ class UserControlle extends AdminController
     {
         $grid = new Grid(new UserInfo);
         $grid->disableActions();
+        $grid->disableRowSelector();
+        $grid->disableColumnSelector();
+        $grid->disableFilter();
+        $grid->disableExport();
         $grid->column('id', __('Id'));
         $grid->column('username', __('用户名'));
         $grid->column('password', __('密码'))->hide();
