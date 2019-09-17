@@ -72,11 +72,11 @@ class UserControlle extends AdminController
         $form = new Form(new UserInfo);
         $user=UserInfo::query()->where('role','teacher')->count();
         $count=$user+1;
-        $form->text('user_id',__('用户账号'))->value('t1000'.$count)->readonly();
+        $form->text('user_id',__('用户账号'))->value('t10000'.$count)->readonly();
         $form->html('<p style="color: #ff4335">请记住的用户账号，登录需要用户账号</p>', $label = '');
         $form->text('username', __('用户名'))->required();
         $form->password('password', __('密码'))->rules('required|min:6',[
-            'min'=>'密码不能少于6为'
+            'min'=>'密码不能少于6位'
         ]);
         $form->saving(function (Form $form){
             if ($form->password&&$form->model()->password!=$form->password){
