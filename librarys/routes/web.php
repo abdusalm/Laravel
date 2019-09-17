@@ -28,31 +28,31 @@ Route::get('article','SearchController@getOne')->middleware('checkLogin');
 
 Route::post('loginDo','MainController@loginDo');
 
-Route::post('publishDo','PublishController@publishDo');
+Route::post('publishDo','PublishController@publishDo')->middleware('checkLogin');
 
-Route::get('publish','PublishController@publish');
+Route::get('publish','PublishController@publish')->middleware('checkLogin');
 
 Route::get('register','MainController@register');
 Route::post('registerDo','MainController@registerDo');
 
 Route::get('update',function (){
-    return view('userinfo');
+    return view('userinfo')->middleware('checkLogin');
 });
-Route::post('updateDo','MainController@update');
+Route::post('updateDo','MainController@update')->middleware('checkLogin');
 
 Route::get('login',function (){
     return view('LoginPage');
 });
 
-Route::get('collect','CollectionController@collect');
+Route::get('collect','CollectionController@collect')->middleware('checkLogin');
 
-Route::get('collectionShell','CollectionController@collections');
+Route::get('collectionShell','CollectionController@collections')->middleware('checkLogin');
 
-Route::get('edit','PublishController@edit');
+Route::get('edit','PublishController@edit')->middleware('checkLogin');
 
-Route::post('editDo','PublishController@editDo');
+Route::post('editDo','PublishController@editDo')->middleware('checkLogin');
 
-Route::get('deleteDo','PublishController@deleteDo');
+Route::get('deleteDo','PublishController@deleteDo')->middleware('checkLogin');
 
 
 
